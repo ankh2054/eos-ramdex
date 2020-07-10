@@ -5,7 +5,7 @@
 create_dir() {
   # Create LOG directoties for express
   echo "Creating express log directory"
-  mkdir -p /app/express/logs
+  mkdir -p /logs
 
 }
 
@@ -70,9 +70,7 @@ cd /app
 # Add DB API database settings
 sed -i "s/db_database/$DB_DATABASE/" dbapi/.env && \
 sed -i "s/db_user/$DB_USER/" dbapi/.env && \
-sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env && \
-## Remove the original conf.js
-
+sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env
 
 }
 

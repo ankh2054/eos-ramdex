@@ -6,6 +6,7 @@ Sentnl WAXRAM
 ```
 CD into directory of choice
 docker build https://github.com/ankh2054/eos-ramdex.git -t eosram-dex 
+
 ```
 
 
@@ -14,7 +15,7 @@ docker build https://github.com/ankh2054/eos-ramdex.git -t eosram-dex
 |ENV & ARG                 |Value                          |Description                                   |
 |--------------------------|---------------------------------------|--------------------------------------|
 |**CHAIN_NAME**            |`wax`                                  | Used for DB setup                    |
-|**PG_PASSWORD**           |`postgresqlpassword      `             | PostgreSQL password                  |
+|**PG_PASSWORD**           |`postgresqlpassword`                   | PostgreSQL password                  |
 |**DB_DATABASE**           |`waxram`                               | Database Name for RAM data           |
 |**DB_USER**               |`waxramuser`                           | Database user with access to DB      |
 |**DB_PASSWORD**           |`waxramuserpassword`                   | Password for Database user       	  |
@@ -34,7 +35,7 @@ docker run  --name waxram.sentnl.io --expose 80 \
 -e "DB_USER=waxramuser" \
 -e "DB_PASSWORD=waxram" \
 -v /data/sites/waxram.sentnl.io/postgresql:/var/lib/postgresql \
-eosram-dex:prod
+eosram-dex:latest
 ```
 
 ##  Change database name in dbapi/controller/ram.js & database setup 
