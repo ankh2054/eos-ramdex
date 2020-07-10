@@ -8,6 +8,7 @@ ENV PACKAGES="\
   postgresql \
   postgresql-client \
   timescaledb-postgresql-12 \
+  timescaledb-tune \
 "
 #tzdata
 ARG DEBIAN_FRONTEND=noninteractive
@@ -56,6 +57,8 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
       && echo "listen_addresses='*'" >> $PG_CONFIG_FILE
 
+# Run timescaleDB tune
+RUN timescaledb-tune --quiet --yes
 
 WORKDIR /app
 

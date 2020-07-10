@@ -12,23 +12,36 @@ create_dir() {
 
 postgresql_install() {
 
-# Run the timescaleDB tuning to update postgresql conf
-timescaledb-tune --quiet --yes
-
 # Initialise postgreSQL - 
 # Check if exsting DB exists
 if [ ! -d "$PG_DATA" ]; then
 
-  echo "${PG_PASSWORD}" > ${PG_PASSWORD_FILE}
+  sudo -u postgres echo "${PG_PASSWORD}" > ${PG_PASSWORD_FILE}
   chmod 600 ${PG_PASSWORD_FILE}
 
-  ${PG_BINDIR}/initdb --pgdata=${PG_DATA} --pwfile=${PG_PASSWORD_FILE} \
+  sudo -u postgres ${PG_BINDIR}/initdb --pgdata=${PG_DATA} --pwfile=${PG_PASSWORD_FILE} \
     --username=postgres --encoding=UTF8 --auth=trust
 
   echo "*************************************************************************"
   echo " PostgreSQL password is ${PG_PASSWORD}"
   echo "*************************************************************************"
 
+fi
+}
+
+env_setup() {
+cd /app
+
+# Add DB API database settings
+sed -i "s/db_database/$DB_DATABASE/" dbapi/.env && \
+sed -i "s/db_user/$DB_USER/" dbapi/.env && \
+sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env
+
+}
+
+
+ram_db_setup(){
+if [ ! -d "$PG_DATA" ]; then
   # Setting credentials for psql connect
   export PGUSER=postgres
   export PGPASSWORD=${PG_PASSWORD}
@@ -55,23 +68,9 @@ if [ ! -d "$PG_DATA" ]; then
     --   using the values in the `timestamp` column.
     SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOSQL
-
 else
   echo "DB already exists"
 fi
-}
-
-unset PGPASSWORD
-unset PG_PASSWORD
-
-env_setup() {
-cd /app
-
-# Add DB API database settings
-sed -i "s/db_database/$DB_DATABASE/" dbapi/.env && \
-sed -i "s/db_user/$DB_USER/" dbapi/.env && \
-sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env
-
 }
 
 # ########################
@@ -92,12 +91,10 @@ childlogdir=/var/log/           ;
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 [supervisorctl]
 serverurl=unix:///var/run/supervisor.sock ; 
-
 [program:nginx]
 command=/usr/sbin/nginx
 autorestart=true
 autostart=true
-
 [program:postgresql]
 command=postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
 directory=${PG_BINDIR}
@@ -105,30 +102,24 @@ autostart=true
 autorestart=true
 numprocs=1
 user=postgres
-
-
 [program:dbapi]
 command=node server.js &> /logs/dbapi.log
 directory=/app/dbapi
 autostart=true
 autorestart=true
 numprocs=1
-
 [program:pricescraper]
 command=node server.js &> /logs/pricescraper.log
 directory=/app/pricescraper
 autostart=true
 autorestart=true
 numprocs=1
-
-
 [program:frontend]
 command=node server.js &> /logs/frontend.log
 directory=/app/express
 autostart=true
 autorestart=true
 numprocs=1
-
 EOF
 }
 
@@ -152,3 +143,6 @@ create_dir
 # Start Supervisor 
 echo "Starting Supervisor"
 /usr/bin/supervisord -n -c /etc/supervisord.conf
+
+# Install the DB stuff
+ram_db_setup
