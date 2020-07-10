@@ -71,7 +71,8 @@ cd /app
 sed -i "s/db_database/$DB_DATABASE/" dbapi/.env && \
 sed -i "s/db_user/$DB_USER/" dbapi/.env && \
 sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env && \
-sed -E "s/(host:.).+$/\1'$VIRTUAL_HOST',/g" frontend/react/src/App/TVChart/api/conf.txt > conf.js && \
+## Remove the original conf.js
+
 
 }
 
