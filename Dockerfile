@@ -11,6 +11,7 @@ ENV PACKAGES="\
 "
 #tzdata
 ARG DEBIAN_FRONTEND=noninteractive
+
 ENV TZ=Europe/London
 
 # PostgreSQL ENV
@@ -68,6 +69,9 @@ RUN mv dbapi/DEFAULTS.env dbapi/.env && \
     mv pricescraper/DEFAULTS.env pricescraper/.env  && \
     mv express/DEFAULTS.env express/.env  && \
     mv react/DEFAULTS.env react/.env 
+
+## Create conf.js before build
+sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" frontend/react/src/App/TVChart/api/conf.txt > conf.js
 
 WORKDIR /app/react
 RUN npm ci --silent && \

@@ -41,3 +41,5 @@ eosram-dex:prod
 use ENV variable to create DB for any chain
 You will also need to chaneg API endpoints
 This will allow us to conect 
+Use ARG ENV for this
+sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" frontend/react/src/App/TVChart/api/conf.txt > conf.js
