@@ -99,27 +99,6 @@ command=/usr/sbin/nginx
 autorestart=true
 autostart=true
 
-[program:frontend]
-command=node server.js &> /logs/frontend.log
-directory=/app/express
-autostart=true
-autorestart=true
-numprocs=1
-
-[program:dbapi]
-command=node server.js &> /logs/dbapi.log
-directory=/app/express
-autostart=true
-autorestart=true
-numprocs=1
-
-[program:pricescraper]
-command=node server.js &> /logs/pricescraper.log
-directory=/app/express
-autostart=true
-autorestart=true
-numprocs=1
-
 [program:postgresql]
 command=${PG_BINDIR}/postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
 directory=/app/express
@@ -127,6 +106,30 @@ autostart=true
 autorestart=true
 numprocs=1
 user=postgres
+
+
+[program:dbapi]
+command=node server.js &> /logs/dbapi.log
+directory=/app/dbapi
+autostart=true
+autorestart=true
+numprocs=1
+
+[program:pricescraper]
+command=node server.js &> /logs/pricescraper.log
+directory=/app/pricescraper
+autostart=true
+autorestart=true
+numprocs=1
+
+
+[program:frontend]
+command=node server.js &> /logs/frontend.log
+directory=/app/express
+autostart=true
+autorestart=true
+numprocs=1
+
 EOF
 }
 

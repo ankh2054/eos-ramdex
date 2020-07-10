@@ -63,8 +63,7 @@ COPY frontend/react react
 RUN mv dbapi/DEFAULTS.env dbapi/.env && \
     mv pricescraper/DEFAULTS.env pricescraper/.env  && \
     mv express/DEFAULTS.env express/.env  && \
-    mv react/DEFAULTS.env react/.env  && \
-
+    mv react/DEFAULTS.env react/.env 
 
 WORKDIR /app/react
 RUN npm ci --silent && \
