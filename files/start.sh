@@ -101,8 +101,8 @@ autorestart=true
 autostart=true
 
 [program:postgresql]
-command=${PG_BINDIR}/postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
-directory=/app/express
+command=postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
+directory=${PG_BINDIR}
 autostart=true
 autorestart=true
 numprocs=1

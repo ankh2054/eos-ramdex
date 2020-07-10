@@ -63,7 +63,6 @@ WORKDIR /app
 COPY backend/dbapi dbapi
 COPY backend/pricescraper pricescraper
 Copy frontend/express express
-RUN mkdir -p /express/public
 COPY frontend/react react
 
 # .ENV files
