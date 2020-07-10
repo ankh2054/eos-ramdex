@@ -59,9 +59,11 @@ RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
 
 WORKDIR /app
 
+
 COPY backend/dbapi dbapi
 COPY backend/pricescraper pricescraper
 Copy frontend/express express
+RUN mkdir -p /express/public
 COPY frontend/react react
 
 # .ENV files
@@ -76,7 +78,7 @@ RUN sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" react/src/App/TVChart/api/con
 WORKDIR /app/react
 RUN npm ci --silent && \
     npm install react-scripts@3.4.1 -g --silent && \
-    npm run builddocker
+    npm run build
 
 
 # Nginx
