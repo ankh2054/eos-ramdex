@@ -39,7 +39,7 @@ RUN add-apt-repository -y ppa:timescale/timescaledb-ppa && \
     apt-get update
 
 # Install nodejs seperately 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+RUN wget -qO- https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
 
 RUN apt update && apt install --no-install-recommends -y $PACKAGES  && \
