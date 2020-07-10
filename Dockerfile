@@ -14,7 +14,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/London
 
 # PostgreSQL ENV
-ENV PG_VERSION 12.3
+ENV PG_VERSION 12
 ENV PG_BASE /var/lib/postgresql
 ENV PG_PASSWORD_FILE ${PG_BASE}/pwfile
 ENV PG_DATA ${PG_BASE}/${PG_VERSION}/main
