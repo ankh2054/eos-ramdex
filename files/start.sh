@@ -1,5 +1,5 @@
 #!/bin/sh
-
+export NODE_ENV=production
 
 
 create_dir() {
@@ -17,7 +17,8 @@ postgresql_install() {
 if [ ! -d "$PG_DATA" ]; then
 
   sudo -u postgres echo "${PG_PASSWORD}" > ${PG_PASSWORD_FILE}
-  chmod 600 ${PG_PASSWORD_FILE} && chown postgres:postgres ${PG_PASSWORD_FILE}
+  chmod 600 ${PG_PASSWORD_FILE} && chown postgres:postgres ${PG_PASSWORD_FILE} && \
+  chown postgres:postgres -R ${PG_DATA}
 
   sudo -u postgres ${PG_BINDIR}/initdb --pgdata=${PG_DATA} --pwfile=${PG_PASSWORD_FILE} \
     --username=postgres --encoding=UTF8 --auth=trust
@@ -78,8 +79,8 @@ fi
 ###########################
 
 create_supervisor_conf() {
-  rm -rf /etc/supervisord.conf
-  cat > /etc/supervisord.conf <<EOF
+  rm -rf /etc/supervisor/supervisord.conf
+  cat > /etc/supervisor/supervisord.conf <<EOF
 [unix_http_server]
 file=/var/run/supervisor.sock   ; 
 chmod=0700                       ; 
@@ -96,8 +97,9 @@ command=/usr/sbin/nginx
 autorestart=true
 autostart=true
 [program:postgresql]
-command=postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
+command=${PG_BINDIR}/postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
 directory=${PG_BINDIR}
+priority=1
 autostart=true
 autorestart=true
 numprocs=1
@@ -105,18 +107,21 @@ user=postgres
 [program:dbapi]
 command=node server.js &> /logs/dbapi.log
 directory=/app/dbapi
+priority=2
 autostart=true
 autorestart=true
 numprocs=1
 [program:pricescraper]
 command=node server.js &> /logs/pricescraper.log
 directory=/app/pricescraper
+priority=3
 autostart=true
 autorestart=true
 numprocs=1
 [program:frontend]
 command=node server.js &> /logs/frontend.log
-directory=/app/express
+directory=/app/expres
+priority=4
 autostart=true
 autorestart=true
 numprocs=1
@@ -142,7 +147,7 @@ create_dir
 
 # Start Supervisor 
 echo "Starting Supervisor"
-/usr/bin/supervisord -n -c /etc/supervisord.conf
+/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
 # Install the DB stuff
 ram_db_setup

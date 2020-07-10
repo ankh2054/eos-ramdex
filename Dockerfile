@@ -78,10 +78,23 @@ RUN mv dbapi/DEFAULTS.env dbapi/.env && \
 ## Create conf.js before build
 RUN sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" react/src/App/TVChart/api/conf.txt > react/src/App/TVChart/api/conf.js
 
+# Install nodejs modules 
 WORKDIR /app/react
 RUN npm ci --silent && \
     npm install react-scripts@3.4.1 -g --silent && \
     npm run builddocker
+
+WORKDIR /app/dbapi
+RUN npm ci --silent && \
+    npm install  --silent
+
+WORKDIR /app/pricescraper
+RUN npm ci --silent && \
+    npm install  --silent
+
+WORKDIR /app/express
+RUN npm ci --silent && \
+    npm install  --silent
 
 
 # Nginx
