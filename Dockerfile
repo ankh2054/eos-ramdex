@@ -9,6 +9,7 @@ ENV PACKAGES="\
   postgresql-client \
   timescaledb-postgresql-12 \
   timescaledb-tools \
+  sudo \
 "
 #tzdata
 ARG DEBIAN_FRONTEND=noninteractive
