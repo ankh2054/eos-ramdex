@@ -1,0 +1,76 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+
+.recentorders-outer {
+  padding-bottom: 8px;
+}
+
+.tradeColRight {
+  text-align: right;
+}
+
+.tradeColCenter {
+  text-align: center;
+}
+
+.tradeColQuant {
+}
+
+.tableHeader:hover {
+  background-color: initial;
+}
+
+.recentorders-inner {
+  overflow-y: scroll;
+  white-space: nowrap;
+  height: 59vh;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+}
+
+.sell {
+  color: rgb(255, 88, 88);
+}
+
+.buy {
+  color: rgb(102, 202, 0);
+}
+
+th {
+  font-weight: 400;
+}
+
+tbody {
+  line-height: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+tr:hover {
+  background-color: #525D67;
+  cursor: pointer;
+}
+
+tr:hover td {
+    background-color: transparent; /* or #000 */
+}
+
+.recentorders-inner a {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 480px) {
+  .table-sm th, .table-sm td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      padding-right: 11px;
+      font-size: 12px;
+  }
+
+}

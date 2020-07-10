@@ -1,0 +1,24 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+
+.progress-lg {
+  height: 25px;
+}
+
+.list-group-item-acctinfo {
+  padding: 0px;
+}
+
+.list-group-item-accname {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.login-btn-icons {
+  font-size: 18px;
+  margin-right: 5px;
+  vertical-align: middle;
+}

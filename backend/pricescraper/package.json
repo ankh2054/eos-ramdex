@@ -1,0 +1,25 @@
+{
+  "name": "eosram-pricescraper",
+  "version": "3.0.0",
+  "description": "Price scraper component for www.buyeosram.io - scrapes the current price of EOS RAM and sends it to the DB API to be stored.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "prod": "NODE_ENV=production node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "fsevents": "^1.2.9",
+    "moment": "^2.22.2",
+    "request": "^2.87.0",
+    "socket.io": "^2.1.1",
+    "underscore": "^1.9.1"
+  }
+}

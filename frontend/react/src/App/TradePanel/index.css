@@ -1,0 +1,11 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+.successMsg {
+  color: #fff;
+  text-decoration: underline;
+}
+
+#react-tradepanel {
+  margin-bottom: 50px;
+}

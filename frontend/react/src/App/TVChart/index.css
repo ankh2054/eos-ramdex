@@ -1,0 +1,12 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+#tv_chart_container {
+	height: 55vh;
+}
+
+@media only screen and (max-width: 480px) {
+	#tv_chart_container {
+		height: 80vh;
+	}
+}

@@ -1,0 +1,36 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+.increase {
+  font-weight: bold;
+  color: rgb(102, 202, 0) !important;
+}
+
+.decrease {
+  font-weight: bold;
+  color: rgb(255, 88, 88) !important;;
+}
+
+.nounderline {
+  text-decoration: none;
+}
+
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.page-title-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 750px) {
+  .page-title-box {
+    justify-content: space-evenly;
+  }
+}

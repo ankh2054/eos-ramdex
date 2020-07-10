@@ -1,0 +1,11 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+
+.footer {
+  bottom: 0;
+  padding: 19px 0;
+  position: absolute;
+  right: 0;
+  left: 0;
+  background-color: #3f4759; }

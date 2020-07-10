@@ -1,0 +1,33 @@
+{
+  "name": "eosramexchange",
+  "version": "1.0.0",
+  "description": "A simple service to allow anyone to buy and sell EOS ram",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "prod": "NODE_ENV=production node server.js"
+  },
+  "keywords": [
+    "eos",
+    "ram",
+    "exchange",
+    "resources",
+    "eosio"
+  ],
+  "author": "Andrew Coutts",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "express-rate-limit": "^2.11.0",
+    "fsevents": "^1.2.9",
+    "helmet": "^3.12.1",
+    "moment": "^2.24.0",
+    "request": "^2.87.0",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}

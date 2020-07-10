@@ -1,0 +1,31 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+var configLocalnet = {
+  version: '20180720',
+  websocket: {
+    protocol: 'http',
+    host: 'localhost',
+    port: '8082',
+  },
+  publicapi: {
+    protocol: 'http',
+    host: 'localhost',
+    port: '8082',
+  },
+}
+
+var configMainnet = {
+  version: '20180720',
+  websocket: {
+    protocol: 'https',
+    host: 'waxram.sentnl.io',
+    port: '443',
+  },
+  publicapi: {
+    protocol: 'https',
+    host: 'waxram.sentnl.io',
+    port: '443',
+  },
+}
+module.exports = process.env.REACT_APP_ENVIRONMENT === "mainnet" ? configMainnet : configLocalnet;

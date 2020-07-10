@@ -1,0 +1,12 @@
+/*******************************
+* Copyright 2018 Andrew Coutts
+********************************/
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
+.card {
+	box-shadow: 2px 2px 10px #2b323e94;
+}
