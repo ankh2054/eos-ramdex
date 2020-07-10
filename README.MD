@@ -7,6 +7,21 @@ Sentnl WAXRAM
 CD into directory of choice
 docker build https://github.com/ankh2054/eos-ramdex.git -t eosram-dex . 
 ```
+
+
+## ENV Variables
+
+|ENV & ARG                 |Value                          |Description                                   |
+|--------------------------|---------------------------------------|--------------------------------------|
+|**CHAIN_NAME**            |`wax`                                  | Used for DB setup                    |
+|**PG_PASSWORD**           |`postgresqlpassword      `             | PostgreSQL password                  |
+|**DB_DATABASE**           |`waxram`                               | Database Name for RAM data           |
+|**DB_USER**               |`waxramuser`                           | Database user with access to DB      |
+|**DB_PASSWORD**           |`waxramuserpassword`                   | Password for Database user       	  |
+
+
+
+
 # Run the container using nginx proxy
 
 ```
@@ -21,3 +36,8 @@ docker run  --name waxram.sentnl.io --expose 80 \
 -v /data/sites/waxram.sentnl.io/postgresql:/var/lib/postgresql \
 eosram-dex:prod
 ```
+
+##  Change database name in dbapi/controller/ram.js & database setup 
+use ENV variable to create DB for any chain
+You will also need to chaneg API endpoints
+This will allow us to conect 
