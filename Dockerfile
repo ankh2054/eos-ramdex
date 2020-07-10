@@ -8,7 +8,6 @@ ENV PACKAGES="\
   postgresql \
   postgresql-client \
   timescaledb-postgresql-12 \
-  nodejs \
 "
 #tzdata
 ARG DEBIAN_FRONTEND=noninteractive
@@ -38,6 +37,10 @@ RUN wget --quiet --no-check-certificate -O- https://www.postgresql.org/media/key
 # Add timescale PPA
 RUN add-apt-repository -y ppa:timescale/timescaledb-ppa && \
     apt-get update
+
+# Install nodejs seperately 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y nodejs
 
 RUN apt update && apt install --no-install-recommends -y $PACKAGES  && \
     rm -rf /var/lib/apt/lists/* && \
