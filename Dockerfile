@@ -8,6 +8,7 @@ ENV PACKAGES="\
   postgresql \
   postgresql-client \
   timescaledb-postgresql-12 \
+  nodejs \
 "
 #tzdata
 ARG DEBIAN_FRONTEND=noninteractive
