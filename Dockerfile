@@ -9,6 +9,9 @@ ENV PACKAGES="\
   postgresql-client \
   timescaledb-postgresql-12 \
 "
+#tzdata
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/London
 
 # PostgreSQL ENV
 ENV PG_VERSION 12.3
@@ -27,7 +30,6 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 
 # Install required packages to add APT certifcate and APT REPOs
 RUN apt update && apt install --no-install-recommends -y wget gnupg2 ca-certificates software-properties-common
-
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet --no-check-certificate -O- https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - 
