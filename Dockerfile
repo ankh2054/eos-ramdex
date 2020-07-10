@@ -29,7 +29,7 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 RUN apt update && apt install --no-install-recommends -y wget gnupg2 ca-certificates software-properties-common
 
 
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet --no-check-certificate -O- https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - 
 
 # Add timescale PPA

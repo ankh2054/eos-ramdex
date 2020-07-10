@@ -5,7 +5,7 @@ Sentnl WAXRAM
 # Build the producxtion container
 ```
 CD into directory of choice
-docker build https://github.com/ankh2054/eos-ramdex.git -t eosram-dex . 
+docker build https://github.com/ankh2054/eos-ramdex.git -t eosram-dex 
 ```
 
 
