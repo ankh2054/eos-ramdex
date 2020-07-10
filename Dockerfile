@@ -71,7 +71,7 @@ RUN mv dbapi/DEFAULTS.env dbapi/.env && \
     mv react/DEFAULTS.env react/.env 
 
 ## Create conf.js before build
-RUN sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" react/src/App/TVChart/api/conf.txt > conf.js
+RUN sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" react/src/App/TVChart/api/conf.txt > react/src/App/TVChart/api/conf.js
 
 WORKDIR /app/react
 RUN npm ci --silent && \
