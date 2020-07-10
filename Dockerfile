@@ -62,8 +62,8 @@ COPY frontend/react react
 # .ENV files
 RUN mv dbapi/DEFAULTS.env dbapi/.env && \
     mv pricescraper/DEFAULTS.env pricescraper/.env  && \
-    mv frontend/DEFAULTS.env frontend/.env  && \
     mv express/DEFAULTS.env express/.env  && \
+    mv react/DEFAULTS.env react/.env  && \
 
 
 WORKDIR /app/react
