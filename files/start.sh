@@ -15,7 +15,8 @@ postgresql_install() {
 # Run the timescaleDB tuning to update postgresql conf
 timescaledb-tune --quiet --yes
 
-# Initialise postgreSQL
+# Initialise postgreSQL - 
+# Check if exsting DB exists
 if [ ! -d "$PG_DATA" ]; then
 
   echo "${PG_PASSWORD}" > ${PG_PASSWORD_FILE}
@@ -28,14 +29,11 @@ if [ ! -d "$PG_DATA" ]; then
   echo " PostgreSQL password is ${PG_PASSWORD}"
   echo "*************************************************************************"
 
-fi
+  # Setting credentials for psql connect
+  export PGUSER=postgres
+  export PGPASSWORD=${PG_PASSWORD}
 
-export PGUSER=postgres
-export PGPASSWORD=${PG_PASSWORD}
-if psql -lqt | cut -d \| -f 1 | grep -qw ${DB_DATABASE}; then
-   echo "Database already exists"
-else
-    psql <<- EOSQL
+    psql --username "$PGUSER" <<- EOSQL
     CREATE DATABASE ${DB_DATABASE};
     CREATE SCHEMA wax;
     
@@ -57,8 +55,10 @@ else
     --   using the values in the `timestamp` column.
     SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOSQL
-fi
 
+else
+  echo "DB already exists"
+fi
 }
 
 unset PGPASSWORD
@@ -71,7 +71,7 @@ cd /app
 sed -i "s/db_database/$DB_DATABASE/" dbapi/.env && \
 sed -i "s/db_user/$DB_USER/" dbapi/.env && \
 sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env && \
-sed -i "s/db_password/$DB_PASSWORD/" frontend/react/src/App/TVChart/api/conf.js && \
+sed -E "s/(host:.).+$/\1'$VIRTUAL_HOST',/g" frontend/react/src/App/TVChart/api/conf.txt > conf.js && \
 
 }
 

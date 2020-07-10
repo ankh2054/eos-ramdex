@@ -5,13 +5,13 @@ var configLocalnet = {
   version: '20180720',
   websocket: {
     protocol: 'https',
-    host: 'waxram.io',
-    port: '443',
+    host: 'localhost',
+    port: '8082',
   },
   publicapi: {
     protocol: 'https',
-    host: 'waxram.io',
-    port: '443',
+    host: 'localhost',
+    port: '8082',
   },
 }
 
