@@ -1,6 +1,7 @@
 #!/bin/sh
 #export NODE_ENV=production
-
+#export PGUSER=postgres
+#export PGPASSWORD=${PG_PASSWORD}
 
 
 postgresql_install() {

@@ -31,7 +31,7 @@ docker run  --name waxram.sentnl.io --expose 80 \
 -e "LETSENCRYPT_HOST=waxram.sentnl.io" \
 -e "LETSENCRYPT_EMAIL=charles.holtzkampf@gmail.com" \
 -e "PG_PASSWORD=postgresqlpassword" \
--e "DB_DATABASE=waxram" \
+-e "DB_DATABASE=waxdb" \
 -e "DB_USER=waxramuser" \
 -e "DB_PASSWORD=waxramuserpassword" \
 -v /data/sites/waxram.sentnl.io/postgresql:/var/lib/postgresql \
