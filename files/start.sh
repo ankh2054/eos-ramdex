@@ -16,9 +16,10 @@ postgresql_install() {
 # Check if exsting DB exists
 if [ ! -d "$PG_DATA" ]; then
 
+  chown postgres:postgres /var/lib/postgresql
   sudo -u postgres echo "${PG_PASSWORD}" > ${PG_PASSWORD_FILE}
   chmod 600 ${PG_PASSWORD_FILE} && chown postgres:postgres ${PG_PASSWORD_FILE} && \
-  chown postgres:postgres -R ${PG_DATA}
+  
 
   sudo -u postgres ${PG_BINDIR}/initdb --pgdata=${PG_DATA} --pwfile=${PG_PASSWORD_FILE} \
     --username=postgres --encoding=UTF8 --auth=trust
@@ -120,7 +121,7 @@ autorestart=true
 numprocs=1
 [program:frontend]
 command=node server.js &> /logs/frontend.log
-directory=/app/expres
+directory=/app/express
 priority=4
 autostart=true
 autorestart=true
