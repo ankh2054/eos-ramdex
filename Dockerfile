@@ -25,6 +25,7 @@ ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
 ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 
+
 ARG PG_DATA=${PG_BASE}/${PG_VERSION}/main
 
 #NodeJS ENV
@@ -67,6 +68,8 @@ COPY backend/pricescraper pricescraper
 Copy frontend/express express
 COPY frontend/react react
 
+RUN mkdir -p dbapi/logs && mkdir -p pricescraper/logs && mkdir -p express/logs
+
 # .ENV files
 RUN mv dbapi/DEFAULTS.env dbapi/.env && \
     mv pricescraper/DEFAULTS.env pricescraper/.env  && \
@@ -98,8 +101,6 @@ RUN npm ci --silent && \
 # Nginx
 COPY files/nginx.conf /etc/nginx/nginx.conf
 COPY files/pg_hba.conf $PG_CONFIG_DIR/pg_hba.conf
-COPY files/pg_hba.conf $PG_CONFIG_DIR/test.conf
-
 
 # Entrypoint
 ADD files/start.sh /

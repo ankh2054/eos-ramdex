@@ -4,13 +4,6 @@ export PGUSER=postgres
 export PGPASSWORD=${PG_PASSWORD}
 
 
-create_dir() {
-  # Create LOG directoties for express
-  echo "Creating express log directory"
-  mkdir -p /logs
-
-}
-
 postgresql_install() {
 
 # Initialise postgreSQL - 
@@ -24,11 +17,8 @@ if [ ! -d "$PG_DATA" ]; then
 
   sudo -u postgres ${PG_BINDIR}/initdb --pgdata=${PG_DATA} --pwfile=${PG_PASSWORD_FILE} \
     --username=postgres --encoding=UTF8 --auth=trust
-
-  echo "*************************************************************************"
-  echo " PostgreSQL password is ${PG_PASSWORD}"
-  echo "*************************************************************************"
-
+else
+  echo "DB already exists"
 fi
 }
 
@@ -43,37 +33,31 @@ sed -i "s/waxuserpassword/$DB_PASSWORD/" dbapi/.env
 
 
 ram_db_setup(){
-if [ ! -d "$PG_DATA" ]; then
-  # Setting credentials for psql connect
-
-
 psql -U $PGUSER <<- EOSQL
-    CREATE DATABASE ${DB_DATABASE};
-    CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
-    CREATE SCHEMA wax;
-    
-    CREATE TABLE wax.candles10s (
-    timestamp   TIMESTAMP without time zone NOT NULL UNIQUE,
-    open        DOUBLE PRECISION  NOT NULL,
-    high        DOUBLE PRECISION  NOT NULL,
-    low         DOUBLE PRECISION  NOT NULL,
-    close       DOUBLE PRECISION  NOT NULL,
-    volume      DOUBLE PRECISION  NOT NULL
-    );
-    CREATE USER ${DB_USER} WITH ENCRYPTED PASSWORD '${PG_PASSWORD}';
-    GRANT ALL PRIVILEGES ON DATABASE ${DB_DATABASE} TO ${DB_USER};
-    GRANT ALL PRIVILEGES ON SCHEMA wax TO ${DB_USER};
-    GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA wax TO ${DB_USER};
-    GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA wax TO ${DB_USER};
-    /* Create the hyper_table timescaleDB using wax.candles10s */
-    -- This creates a hypertable that is partitioned by time
-    --   using the values in the `timestamp` column.
-    SELECT create_hypertable('wax.candles10s', 'timestamp');
+      CREATE DATABASE ${DB_DATABASE};
+      CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+      CREATE SCHEMA wax;
+      
+      CREATE TABLE wax.candles10s (
+      timestamp   TIMESTAMP without time zone NOT NULL UNIQUE,
+      open        DOUBLE PRECISION  NOT NULL,
+      high        DOUBLE PRECISION  NOT NULL,
+      low         DOUBLE PRECISION  NOT NULL,
+      close       DOUBLE PRECISION  NOT NULL,
+      volume      DOUBLE PRECISION  NOT NULL
+      );
+      CREATE USER ${DB_USER} WITH ENCRYPTED PASSWORD '${PG_PASSWORD}';
+      GRANT ALL PRIVILEGES ON DATABASE ${DB_DATABASE} TO ${DB_USER};
+      GRANT ALL PRIVILEGES ON SCHEMA wax TO ${DB_USER};
+      GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA wax TO ${DB_USER};
+      GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA wax TO ${DB_USER};
+      /* Create the hyper_table timescaleDB using wax.candles10s */
+      -- This creates a hypertable that is partitioned by time
+      --   using the values in the `timestamp` column.
+      SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOSQL
-else
-  echo "DB already exists"
-fi
 }
+
 
 # ########################
 # Creating supervisor file
@@ -106,21 +90,21 @@ autorestart=true
 numprocs=1
 user=postgres
 [program:dbapi]
-command=node server.js &> /logs/dbapi.log
+command=bash -c 'sleep 10 && node server.js &> logs/dbapi.log' 
 directory=/app/dbapi
 priority=2
 autostart=true
 autorestart=true
 numprocs=1
 [program:pricescraper]
-command=node server.js &> /logs/pricescraper.log
+command=bash -c 'sleep 15 && node server.js &> logs/pricescraper.log'
 directory=/app/pricescraper
 priority=3
 autostart=true
 autorestart=true
 numprocs=1
 [program:frontend]
-command=node server.js &> /logs/frontend.log
+command=bash -c 'sleep 20 && node server.js &> logs/frontend.log'
 directory=/app/express
 priority=4
 autostart=true
@@ -132,15 +116,15 @@ EOF
 
 
 # Running all our scripts
-create_supervisor_conf
 env_setup
+create_supervisor_conf
 postgresql_install
-create_dir
+
 
 
 # Start Supervisor 
 echo "Starting Supervisor"
 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
-# Install the DB stuff
 ram_db_setup
+
