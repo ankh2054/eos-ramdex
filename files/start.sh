@@ -47,7 +47,7 @@ if [ ! -d "$PG_DATA" ]; then
   export PGUSER=postgres
   export PGPASSWORD=${PG_PASSWORD}
 
-    psql --username "$PGUSER" <<- EOSQL
+    psql -U "$PGUSER" <<- EOSQL
     CREATE DATABASE ${DB_DATABASE};
     CREATE SCHEMA wax;
     
