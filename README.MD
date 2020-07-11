@@ -33,7 +33,7 @@ docker run  --name waxram.sentnl.io --expose 80 \
 -e "PG_PASSWORD=postgresqlpassword" \
 -e "DB_DATABASE=waxram" \
 -e "DB_USER=waxramuser" \
--e "DB_PASSWORD=waxram" \
+-e "DB_PASSWORD=waxramuserpassword" \
 -v /data/sites/waxram.sentnl.io/postgresql:/var/lib/postgresql \
 eosram-dex:latest
 ```

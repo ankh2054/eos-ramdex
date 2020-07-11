@@ -38,7 +38,6 @@ cd /app
 sed -i "s/waxram/$DB_DATABASE/" dbapi/.env && \
 sed -i "s/waxramuser/$DB_USER/" dbapi/.env && \
 sed -i "s/password/$DB_PASSWORD/" dbapi/.env
-
 }
 
 
