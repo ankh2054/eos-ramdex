@@ -1,5 +1,7 @@
 #!/bin/sh
 export NODE_ENV=production
+export PGUSER=postgres
+export PGPASSWORD=${PG_PASSWORD}
 
 
 create_dir() {
@@ -44,8 +46,7 @@ sed -i "s/waxuserpassword/$DB_PASSWORD/" dbapi/.env
 ram_db_setup(){
 if [ ! -d "$PG_DATA" ]; then
   # Setting credentials for psql connect
-  export PGUSER=postgres
-  export PGPASSWORD=${PG_PASSWORD}
+
 
     psql -U "$PGUSER" <<- EOSQL
     CREATE DATABASE ${DB_DATABASE};
