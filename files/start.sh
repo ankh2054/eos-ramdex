@@ -11,7 +11,6 @@ create_dir() {
 
 }
 
-
 postgresql_install() {
 
 # Initialise postgreSQL - 
@@ -132,19 +131,11 @@ EOF
 
 
 
-
-
-
-
-
-
 # Running all our scripts
 create_supervisor_conf
 env_setup
 postgresql_install
 create_dir
-
-
 
 
 # Start Supervisor 
