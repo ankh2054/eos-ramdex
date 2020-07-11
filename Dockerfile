@@ -52,7 +52,7 @@ RUN apt update && apt install --no-install-recommends -y $PACKAGES  && \
 
 
 RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
-      && chown -R postgres:postgres "$PG_DATA"
+      && chown -R postgres:postgres "$PG_DATA"  \
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
       && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql 
 
