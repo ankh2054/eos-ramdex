@@ -48,8 +48,9 @@ if [ ! -d "$PG_DATA" ]; then
   # Setting credentials for psql connect
 
 
-    psql -U "$PGUSER" <<- EOSQL
+psql -U $PGUSER <<- EOSQL
     CREATE DATABASE ${DB_DATABASE};
+    CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
     CREATE SCHEMA wax;
     
     CREATE TABLE wax.candles10s (
