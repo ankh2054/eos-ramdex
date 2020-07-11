@@ -25,7 +25,6 @@ ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
 ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 
-ARG PG_DATA=${PG_BASE}/${PG_VERSION}/main
 
 #NodeJS ENV
 ENV PATH /app/node_modules/.bin:$PATH
@@ -53,12 +52,10 @@ RUN apt update && apt install --no-install-recommends -y $PACKAGES  && \
 
 
 RUN rm -rf "$PG_BASE" && mkdir -p "$PG_BASE" && chown -R postgres:postgres "$PG_BASE" \
+      && chown -R postgres:postgres "$PG_DATA"
       && mkdir -p /var/run/postgresql/$PG_VERSION-main.pg_stat_tmp \
       && chown -R postgres:postgres /var/run/postgresql && chmod g+s /var/run/postgresql 
 
-RUN echo "host all  all    0.0.0.0/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
-      && echo "host all  all    ::/0  md5" >> $PG_CONFIG_DIR/pg_hba.conf \
-      && echo "listen_addresses='*'" >> $PG_CONFIG_FILE
 
 # Run timescaleDB tune
 RUN timescaledb-tune --quiet --yes
