@@ -25,6 +25,8 @@ ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
 ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 
+ARG PG_DATA=${PG_BASE}/${PG_VERSION}/main
+
 #NodeJS ENV
 ENV PATH /app/node_modules/.bin:$PATH
 
@@ -99,6 +101,8 @@ RUN npm ci --silent && \
 
 # Nginx
 COPY files/nginx.conf /etc/nginx/nginx.conf
+COPY files/pg_hba.conf $PG_DATA/pg_hba.conf
+
 
 # Entrypoint
 ADD files/start.sh /
