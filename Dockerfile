@@ -24,6 +24,8 @@ ENV PG_DATA ${PG_BASE}/${PG_VERSION}/main
 ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
 ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
+ENV PGUSER=postgres
+
 
 
 #NodeJS ENV
@@ -95,7 +97,6 @@ WORKDIR /app/express
 RUN npm ci --silent && \
     npm install  --silent
 
-RUN export PGUSER=postgres && export PGPASSWORD=${PG_PASSWORD} && export NODE_ENV=production
 
 # Nginx
 COPY files/nginx.conf /etc/nginx/nginx.conf

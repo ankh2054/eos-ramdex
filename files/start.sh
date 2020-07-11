@@ -1,7 +1,6 @@
 #!/bin/sh
 #export NODE_ENV=production
-#export PGUSER=postgres
-#export PGPASSWORD=${PG_PASSWORD}
+
 
 
 postgresql_install() {
@@ -11,7 +10,7 @@ postgresql_install() {
 if [ ! -d "$PG_DATA" ]; then
 
   chown postgres:postgres /var/lib/postgresql
-  sudo -u postgres echo "${PG_PASSWORD}" > ${PG_PASSWORD_FILE}
+  sudo -u postgres echo "${PGPASSWORD}" > ${PG_PASSWORD_FILE}
   chmod 600 ${PG_PASSWORD_FILE} && chown postgres:postgres ${PG_PASSWORD_FILE} && \
   
 
@@ -46,7 +45,7 @@ psql -U $PGUSER <<- EOSQL
       close       DOUBLE PRECISION  NOT NULL,
       volume      DOUBLE PRECISION  NOT NULL
       );
-      CREATE USER ${DB_USER} WITH ENCRYPTED PASSWORD '${PG_PASSWORD}';
+      CREATE USER ${DB_USER} WITH ENCRYPTED PASSWORD '${DB_PASSWORD}';
       GRANT ALL PRIVILEGES ON DATABASE ${DB_DATABASE} TO ${DB_USER};
       GRANT ALL PRIVILEGES ON SCHEMA wax TO ${DB_USER};
       GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA wax TO ${DB_USER};
