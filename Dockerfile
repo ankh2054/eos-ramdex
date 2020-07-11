@@ -98,7 +98,7 @@ RUN npm ci --silent && \
 
 
 # Nginx
-COPY files/nginx.conf /etc/nginx/conf.d/default.conf
+COPY files/nginx.conf /etc/nginx/nginx.conf
 
 # Entrypoint
 ADD files/start.sh /

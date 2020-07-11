@@ -35,9 +35,9 @@ env_setup() {
 cd /app
 
 # Add DB API database settings
-sed -i "s/db_database/$DB_DATABASE/" dbapi/.env && \
-sed -i "s/db_user/$DB_USER/" dbapi/.env && \
-sed -i "s/db_password/$DB_PASSWORD/" dbapi/.env
+sed -i "s/waxram/$DB_DATABASE/" dbapi/.env && \
+sed -i "s/waxramuser/$DB_USER/" dbapi/.env && \
+sed -i "s/password/$DB_PASSWORD/" dbapi/.env
 
 }
 
