@@ -1,5 +1,4 @@
 #!/bin/sh
-export w
 export PGUSER=postgres
 
 
@@ -59,10 +58,7 @@ echo "creating initdb.sql file"
 EOF
 
 sleep 5 
-#tail -f /app/logfile | while read LOGLINE
-#do   
-#    [[ ${LOGLINE} == *"database system is ready to accept connections"* ]] && echo "DB is ready" && pkill -P $$ tail
-#done
+
 
 echo "installing DB: ${DB_DATABASE}" 
 createdb -U postgres ${DB_DATABASE}
@@ -75,6 +71,31 @@ ps -aux | ps axf | grep "/usr/lib/postgresql/12/bin/postgres"  | grep -v grep | 
 
 }
 
+ram_DB_init(){
+  psql -U postgres <<- EOSQL
+      CREATE DATABASE ${DB_DATABASE};
+      CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+      CREATE SCHEMA wax;
+      
+      CREATE TABLE wax.candles10s (
+      timestamp   TIMESTAMP without time zone NOT NULL UNIQUE,
+      open        DOUBLE PRECISION  NOT NULL,
+      high        DOUBLE PRECISION  NOT NULL,
+      low         DOUBLE PRECISION  NOT NULL,
+      close       DOUBLE PRECISION  NOT NULL,
+      volume      DOUBLE PRECISION  NOT NULL
+      );
+      CREATE USER ${DB_USER} WITH ENCRYPTED PASSWORD '${DB_PASSWORD}';
+      GRANT ALL PRIVILEGES ON DATABASE ${DB_DATABASE} TO ${DB_USER};
+      GRANT ALL PRIVILEGES ON SCHEMA wax TO ${DB_USER};
+      GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA wax TO ${DB_USER};
+      GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA wax TO ${DB_USER};
+      /* Create the hyper_table timescaleDB using wax.candles10s */
+      -- This creates a hypertable that is partitioned by time
+      --   using the values in the `timestamp` column.
+      SELECT create_hypertable('wax.candles10s', 'timestamp');
+EOSQL
+}
 # ########################
 # Creating supervisor file
 ###########################
@@ -106,21 +127,21 @@ autorestart=true
 numprocs=1
 user=postgres
 [program:dbapi]
-command=bash -c 'sleep 10 &&  node server.js &> logs/dbapi.log' 
+command=bash -c 'sleep 3 && node server.js &> logs/dbapi.log' 
 directory=/app/dbapi
 priority=2
 autostart=true
 autorestart=true
 numprocs=1
 [program:pricescraper]
-command=bash -c 'sleep 15 && node server.js &> logs/pricescraper.log'
+command=bash -c 'sleep 5 && node server.js &> logs/pricescraper.log'
 directory=/app/pricescraper
 priority=3
 autostart=true
 autorestart=true
 numprocs=1
 [program:frontend]
-command=bash -c 'sleep 20 && node server.js &> logs/frontend.log'
+command=bash -c 'sleep 7 && node server.js &> logs/frontend.log'
 directory=/app/express
 priority=4
 autostart=true
