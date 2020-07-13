@@ -57,6 +57,12 @@ echo "creating initdb.sql file"
     GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA wax TO ${DB_USER};
     SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOF
+
+tail -f logfile | while read LOGLINE
+do   
+    [[ "${LOGLINE}" == *"database system is ready to accept connections"* ]] && echo "DB is ready" && pkill -P $$ tail
+done
+
 echo "installing DB: ${DB_DATABASE}" 
 createdb -U postgres ${DB_DATABASE}
 
