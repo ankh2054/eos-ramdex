@@ -1,5 +1,5 @@
 #!/bin/sh
-export NODE_ENV=production
+export w
 export PGUSER=postgres
 
 
@@ -26,14 +26,38 @@ env_setup() {
 cd /app
 
 # Add DB API database settings
-sed -i "s/waxdbuser/$DB_DATABASE/" dbapi/.env && \
+sed -i "s/waxdb/$DB_DATABASE/" dbapi/.env && \
 sed -i "s/waxramuser/$DB_USER/" dbapi/.env && \
 sed -i "s/waxuserpassword/$DB_PASSWORD/" dbapi/.env
 }
 
 
 ram_db_setup(){
-psql -U postgres <<- EOSQL
+  cat > initdb.sql <<EOF
+    CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+    CREATE SCHEMA wax;
+      
+    CREATE TABLE wax.candles10s (
+    timestamp   TIMESTAMP without time zone NOT NULL UNIQUE,
+    open        DOUBLE PRECISION  NOT NULL,
+    high        DOUBLE PRECISION  NOT NULL,
+    low         DOUBLE PRECISION  NOT NULL,
+    close       DOUBLE PRECISION  NOT NULL,
+    volume      DOUBLE PRECISION  NOT NULL
+    );
+    CREATE USER ${DB_USER} WITH ENCRYPTED PASSWORD '${DB_PASSWORD}';
+    GRANT ALL PRIVILEGES ON DATABASE ${DB_DATABASE} TO ${DB_USER};
+    GRANT ALL PRIVILEGES ON SCHEMA wax TO ${DB_USER};
+    GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA wax TO ${DB_USER};
+    GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA wax TO ${DB_USER};
+    SELECT create_hypertable('wax.candles10s', 'timestamp');
+EOF
+createdb -U postgres ${DB_DATABASE}
+psql -U postgres ${DB_DATABASE} < initdb.sql
+}
+
+ram_DB_init(){
+  psql -U postgres <<- EOSQL
       CREATE DATABASE ${DB_DATABASE};
       CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
       CREATE SCHEMA wax;
@@ -57,8 +81,6 @@ psql -U postgres <<- EOSQL
       SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOSQL
 }
-
-
 # ########################
 # Creating supervisor file
 ###########################
