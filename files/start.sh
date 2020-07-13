@@ -35,7 +35,7 @@ sed -i "s/waxuserpassword/$DB_PASSWORD/" dbapi/.env
 ram_db_setup(){
 
 echo "Starting PostgreSQL"
-${PG_BINDIR}/postgres -D ${PG_DATA} -U postgres -c config_file=${PG_CONFIG_FILE}
+sudo -u postgres ${PG_BINDIR}/postgres -D ${PG_DATA} -c config_file=${PG_CONFIG_FILE}
 
 echo "creating initdb.sql file"
   cat > initdb.sql <<EOF
