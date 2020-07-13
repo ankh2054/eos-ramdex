@@ -33,6 +33,7 @@ sed -i "s/waxuserpassword/$DB_PASSWORD/" dbapi/.env
 
 
 ram_db_setup(){
+echo "installing DB: ${DB_DATABASE}" 
   cat > initdb.sql <<EOF
     CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
     CREATE SCHEMA wax;
@@ -146,7 +147,7 @@ postgresql_install
 
 # Start Supervisor 
 echo "Starting Supervisor"
-/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf &&  ram_db_setup
 
-ram_db_setup
+
 
