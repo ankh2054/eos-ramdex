@@ -58,10 +58,11 @@ echo "creating initdb.sql file"
     SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOF
 
-tail -f /app/logfile | while read LOGLINE
-do   
-    [[ ${LOGLINE} == *"database system is ready to accept connections"* ]] && echo "DB is ready" && pkill -P $$ tail
-done
+sleep 5 
+#tail -f /app/logfile | while read LOGLINE
+#do   
+#    [[ ${LOGLINE} == *"database system is ready to accept connections"* ]] && echo "DB is ready" && pkill -P $$ tail
+#done
 
 echo "installing DB: ${DB_DATABASE}" 
 createdb -U postgres ${DB_DATABASE}
