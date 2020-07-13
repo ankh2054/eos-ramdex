@@ -33,7 +33,6 @@ sed -i "s/waxuserpassword/$DB_PASSWORD/" dbapi/.env
 
 
 ram_db_setup(){
-echo "installing DB: ${DB_DATABASE}" 
   cat > initdb.sql <<EOF
     CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
     CREATE SCHEMA wax;
@@ -53,8 +52,15 @@ echo "installing DB: ${DB_DATABASE}"
     GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA wax TO ${DB_USER};
     SELECT create_hypertable('wax.candles10s', 'timestamp');
 EOF
+echo "installing DB: ${DB_DATABASE}" 
 createdb -U postgres ${DB_DATABASE}
+
+echo "Setting up timescaleDB"
 psql -U postgres ${DB_DATABASE} < initdb.sql
+
+echo "Stopping Postgres DB ready for Supervisor "
+ps -aux | ps axf | grep "/usr/lib/postgresql/12/bin/postgres"  | grep -v grep | awk '{print "kill -9 " $1}' | sh
+
 }
 
 ram_DB_init(){
@@ -142,12 +148,13 @@ EOF
 env_setup
 create_supervisor_conf
 postgresql_install
+ram_db_setup
 
 
 
 # Start Supervisor 
 echo "Starting Supervisor"
-/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf &&  ram_db_setup
+/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
 
 
