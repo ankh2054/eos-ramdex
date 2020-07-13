@@ -106,21 +106,21 @@ autorestart=true
 numprocs=1
 user=postgres
 [program:dbapi]
-command=bash -c 'sleep 10 && NODE_ENV=$NODE_ENV node server.js &> logs/dbapi.log' 
+command=bash -c 'sleep 10 &&  node server.js &> logs/dbapi.log' 
 directory=/app/dbapi
 priority=2
 autostart=true
 autorestart=true
 numprocs=1
 [program:pricescraper]
-command=bash -c 'sleep 15 && NODE_ENV=$NODE_ENV node server.js &> logs/pricescraper.log'
+command=bash -c 'sleep 15 && node server.js &> logs/pricescraper.log'
 directory=/app/pricescraper
 priority=3
 autostart=true
 autorestart=true
 numprocs=1
 [program:frontend]
-command=bash -c 'sleep 20 && NODE_ENV=$NODE_ENV node server.js &> logs/frontend.log'
+command=bash -c 'sleep 20 && node server.js &> logs/frontend.log'
 directory=/app/express
 priority=4
 autostart=true
