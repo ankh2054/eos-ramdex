@@ -1,7 +1,4 @@
-#!/bin/sh
-export PGUSER=postgres
-
-
+#!/bin/bash
 
 postgresql_install() {
 
