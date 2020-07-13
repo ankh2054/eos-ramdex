@@ -4,12 +4,12 @@
 var configLocalnet = {
   version: '20180720',
   websocket: {
-    protocol: 'https',
+    protocol: 'http',
     host: 'localhost',
     port: '8082',
   },
   publicapi: {
-    protocol: 'https',
+    protocol: 'http',
     host: 'localhost',
     port: '8082',
   },

@@ -19,7 +19,7 @@ var configMainnet = {
   version: '20180720',
   websocket: {
     protocol: 'https',
-    host: ''hostname',
+    host: 'hostname',
     port: '443',
   },
   publicapi: {
