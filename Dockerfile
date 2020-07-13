@@ -25,7 +25,7 @@ ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
 ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
 ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
 ENV PGUSER=postgres
-
+ENV NODE_ENV=production
 
 
 #NodeJS ENV
