@@ -65,7 +65,7 @@ sleep 5
 #done
 
 echo "installing DB: ${DB_DATABASE}" 
-createdb -U postgres ${DB_DATABASE}e
+createdb -U postgres ${DB_DATABASE}
 
 echo "Setting up timescaleDB"
 psql -U postgres ${DB_DATABASE} < initdb.sql
