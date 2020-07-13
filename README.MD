@@ -38,9 +38,11 @@ docker run  --name waxram.sentnl.io --expose 80 \
 eosram-dex:latest
 ```
 
-##  Change database name in dbapi/controller/ram.js & database setup 
-use ENV variable to create DB for any chain
-You will also need to chaneg API endpoints
-This will allow us to conect 
-Use ARG ENV for this
-sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" frontend/react/src/App/TVChart/api/conf.txt > conf.js
+##  ToDo 
+ - Change database name in dbapi/controller/ram.js & database setup 
+ - use ENV variable to create DB for any chain
+ - You will also need to change API endpoints
+ - Update start.sh - only run ram_db_setup if ${DB_DATABASE} does not exist
+
+
+
