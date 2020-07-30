@@ -1,9 +1,10 @@
 /*******************************
 * Copyright 2018 Andrew Coutts
 ********************************/
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import Datafeed from './api/'
+
 
 
 function getLanguageFromURL() {
@@ -12,36 +13,28 @@ function getLanguageFromURL() {
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-class TVChart extends React.PureComponent {
 
-	static defaultProps = {
-		//symbol: 'Coinbase:BTC/USD',
-		symbol: 'WAX/KB RAM | SENTNL | waxram.io',
-		interval: '60',
-		containerId: 'tv_chart_container',
-		libraryPath: '/chart/',
-		//~ chartsStorageUrl: 'https://saveload.tradingview.com',
-		chartsStorageApiVersion: '1.1',
-		clientId: 'tradingview.com',
-		userId: 'ankh2054',
-		fullscreen: false,
-		autosize: true,
-		studiesOverrides: {
+
+const TVChart = (props) => {
+
+	const { autosize = true, symbol = 'WAX/KB RAM | SENTNL | waxram.io', interval = '60', containerId = 'tv_chart_container', clientId = 'tradingview.com', libraryPath = '/chart/', chartsStorageUrl
+		, chartsStorageApiVersion = '1.1', userId = 'ankh2054', fullscreen = false, studiesOverrides = {
 			"volume.volume.color.0": "#ec4d5c",	//~ Down color
 			"volume.volume.color.1": "#52b986"	//~ Up color
-		},
-		loading_screen: { backgroundColor: '#000000e6' }
-	};
+		} } = props;
 
-	componentDidMount() {
+
+	
+
+	useEffect(()=>{
 		const widgetOptions = {
 			debug: false,
-			theme: "Dark",
-			symbol: this.props.symbol,
+			theme: "Light",
+			symbol: symbol,
 			datafeed: Datafeed,
-			interval: this.props.interval,
-			container_id: this.props.containerId,
-			library_path: this.props.libraryPath,
+			interval: interval,
+			container_id: containerId,
+			library_path: libraryPath,
 			locale: getLanguageFromURL() || 'en',
 			disabled_features: [
 				'header_symbol_search',
@@ -58,35 +51,37 @@ class TVChart extends React.PureComponent {
 				'study_buttons_in_legend',
 				'move_logo_to_main_pane'
 			],
-			charts_storage_url: this.props.chartsStorageUrl,
-			charts_storage_api_version: this.props.chartsStorageApiVersion,
-			client_id: this.props.clientId,
-			user_id: this.props.userId,
-			fullscreen: this.props.fullscreen,
-			autosize: this.props.autosize,
-			studies_overrides: this.props.studiesOverrides,
+			charts_storage_url: chartsStorageUrl,
+			charts_storage_api_version: chartsStorageApiVersion,
+			client_id: clientId,
+			user_id: userId,
+			fullscreen: fullscreen,
+			autosize: autosize,
+			studies_overrides: studiesOverrides,
 			overrides: {
 				"mainSeriesProperties.showCountdown": true
 			}
 		};
-
 		window.TradingView.onready(() => {
 			const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
 			widget.onChartReady(() => {
-				//~ console.log('Chart has loaded!')
+				console.log('Chart has loaded!')
 			});
 		});
-	}
+	});
+	
 
-	render() {
-		return (
-			<div
-				id={ this.props.containerId }
-				className={ 'TVChart' }
-			/>
-		);
-	}
+	return (
+		<div
+			id={ containerId }
+			className={'TVChart'}
+		/>
+	);
+
 }
+
+
+
 
 
 export default TVChart;

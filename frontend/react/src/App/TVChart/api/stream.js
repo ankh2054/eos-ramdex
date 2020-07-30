@@ -28,7 +28,9 @@ var sub = {
 var frontendSubscriptions = {
   handleNewPriceChange: '',
   handleNewTradesChange: '',
-  handleSocketConnectionStatus: ''
+  handleSocketConnectionStatus: function (status) {
+    
+  }
 }
 
 //~ Set initial state
