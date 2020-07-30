@@ -42,11 +42,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "scss": "node-sass --watch src/assets/layout-components -o src/assets/compiled-css",
     "build": "REACT_APP_ENVIRONMENT=mainnet react-scripts build && rm build/static/*/*.map && cp -r -f build/* ../express/public/",
-    "buildlocal": "REACT_APP_ENVIRONMENT=localnet react-scripts build && rm build/static/*/*.map && cp -r -f build/* ../express/public/"
+    "buildlocal": "REACT_APP_ENVIRONMENT=localnet react-scripts build && rm build/static/*/*.map && cp -r -f build/* ../express/public/",
+    "builddocker": "REACT_APP_ENVIRONMENT=mainnet react-scripts build && rm build/static/*/*.map && mkdir -p ../express/public && cp -r -f build/* ../express/public/"
   },
   "devDependencies": {
     "sass-vars-to-js-loader": "^2.1.1",
