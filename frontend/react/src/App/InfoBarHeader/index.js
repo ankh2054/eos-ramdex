@@ -1,194 +1,122 @@
 /*******************************
 * Copyright 2018 Andrew Coutts
 ********************************/
-import React, {  useEffect, Fragment } from 'react';
-import { Hidden, IconButton, AppBar, Box, Tooltip } from '@material-ui/core';
-
-import {
-  setSidebarToggle,
-  setSidebarToggleMobile
-} from '../../reducers/ThemeOptions';
-
-import HeaderLogo from '../HeaderLogo';
-import HeaderDots from '../HeaderDots';
-import HeaderDrawer from '../HeaderDrawer';
-import HeaderUserbox from '../HeaderUserbox';
-import HeaderSearch from '../HeaderSearch';
-import HeaderMenu from '../HeaderMenu';
-
-import projectLogo from '../../assets/images/sentnl-logo.svg';
-
-import { connect } from 'react-redux';
-
-import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
-import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
-
-import clsx from 'clsx';
+import * as React from 'react';
 import './index.css';
 
-const CurrentRamPrice = (props) => {
-  const { currentRamPriceBytes, priceFlashClass } = props;
-  return (
-    <div>
-      <span className={priceFlashClass}>
-        {!isNaN(currentRamPriceBytes) ? (currentRamPriceBytes * 1024).toFixed(8) : currentRamPriceBytes}
-      </span> {!isNaN(currentRamPriceBytes) ? 'WAX/KB' : ''}
-    </div>
-  );
-};
+class CurrentRamPrice extends React.PureComponent {
+  render() {
 
-const SocketConnectionStatus = (props) => {
-  const { currentConnectionStatus } = props;
-  let badgeType = 'badge-warning';
-  switch (currentConnectionStatus) {
-    case 'Connecting...':
-      badgeType = 'badge-info';
-      break;
-
-    case 'Realtime':
-      badgeType = 'badge-success';
-      break;
-  }
-  return (
-    <span id="connectionStatus" className={`badge ${badgeType}`}>{currentConnectionStatus}</span>
-  );
-};
-
-const InfoBarHeader = (props) => {
-  let priceFlashClass ='';
-  const {
-    currentRamPriceBytes,
-    currentConnectionStatus,
-    headerShadow,
-    headerFixed,
-    sidebarToggleMobile,
-    setSidebarToggleMobile,
-    setSidebarToggle,
-    sidebarToggle
-  } = props;
- 
-
-  const toggleSidebar = () => {
-    setSidebarToggle(!sidebarToggle);
-  };
-
-  const toggleSidebarMobile = () => {
-    setSidebarToggleMobile(!sidebarToggleMobile);
-  };
-
-
-  const updatePriceFlashClass = (e) => {
-    priceFlashClass=e;
-  };
-
-  useEffect(() => {
-    let updateType = 'increase';
-    if (currentRamPriceBytes < 0) {
-      updateType = 'decrease';
+    if (!isNaN(this.props.currentRamPriceBytes)) {
+      return (
+        <div>
+          <span className={this.props.priceFlashClass}>
+            {(this.props.currentRamPriceBytes * 1024).toFixed(8)}
+          </span> WAX/KB
+        </div>
+      );
+    } else {
+      return (
+        <div className={this.props.priceFlashClass}>
+          {this.props.currentRamPriceBytes}
+        </div>
+      );
     }
-
-    updatePriceFlashClass(updateType);
-    setTimeout(() => {
-      updatePriceFlashClass('');
-    }, 720);
-  }, [currentRamPriceBytes]);
-
-  
-
-
-  return (
-    <Fragment>
-      <AppBar
-        color="secondary"
-        className={clsx('app-header', {
-          'app-header-collapsed-sidebar': props.isCollapsedLayout
-        })}
-        position={headerFixed ? 'fixed' : 'absolute'}
-        elevation={headerShadow ? 11 : 3}>
-        {!props.isCollapsedLayout && <HeaderLogo />}
-        <Box className="app-header-toolbar">
-          <Hidden lgUp>
-            <Box
-              className="app-logo-wrapper"
-              title="SENTNL | waxram.sentnl.io">
-              <IconButton
-                color="primary"
-                size="medium"
-                className="app-logo-btn">
-                <img
-                  className="app-logo-img"
-                  alt="SENTNL | waxram.sentnl.io"
-                  src={projectLogo}
-                />
-              </IconButton>
-              <Hidden smDown>
-                <Box className="app-logo-text">SENTNL | waxram.sentnl.io</Box>
-              </Hidden>
-            </Box>
-          </Hidden>
-         <Hidden mdDown>
-            <Box className="d-flex align-items-center">
-              {!props.isCollapsedLayout && (
-                <Box
-                  className={clsx('btn-toggle-collapse', {
-                    'btn-toggle-collapse-closed': sidebarToggle
-                  })}>
-                  
-                </Box>
-              )}
-            
-            </Box>
-          </Hidden>
-         <Box className="d-flex align-items-center">
-            <div className="statusInfo">
-             
-          <SocketConnectionStatus currentConnectionStatus={currentConnectionStatus} />
-              <CurrentRamPrice
-                priceFlashclassName={priceFlashClass}
-                currentRamPriceBytes={currentRamPriceBytes}
-              />
-            </div>
-            {/* <HeaderDots />
-            <HeaderUserbox />
-            <HeaderDrawer />
-            <Box className="toggle-sidebar-btn-mobile">
-              <Tooltip title="Toggle Sidebar" placement="right">
-                <IconButton
-                  color="inherit"
-                  onClick={toggleSidebarMobile}
-                  size="medium">
-                  {sidebarToggleMobile ? (
-                    <MenuOpenRoundedIcon />
-                  ) : (
-                      <MenuRoundedIcon />
-                    )}
-                </IconButton>
-              </Tooltip>
-            </Box> */}
-          </Box> 
-          
-        </Box>
-
-      </AppBar>
-    </Fragment>
-
-
-  );
+  }
 }
 
-// export default InfoBarHeader;
+class SocketConnectionStatus extends React.PureComponent {
+  render() {
+    let badgeType;
+    switch (this.props.currentConnectionStatus) {
+      case 'Connecting...':
+        badgeType = 'badge-info';
+        break;
 
+      case 'Realtime':
+        badgeType = 'badge-success';
+        break;
 
-const mapStateToProps = state => ({
-  headerShadow: state.ThemeOptions.headerShadow,
-  headerFixed: state.ThemeOptions.headerFixed,
-  sidebarToggleMobile: state.ThemeOptions.sidebarToggleMobile,
-  sidebarToggle: state.ThemeOptions.sidebarToggle
-});
+      default:
+        badgeType = 'badge-warning';
+        break;
+    }
 
-const mapDispatchToProps = dispatch => ({
-  setSidebarToggle: enable => dispatch(setSidebarToggle(enable)),
-  setSidebarToggleMobile: enable => dispatch(setSidebarToggleMobile(enable))
-});
+    return (
+      <span id="connectionStatus" className={`badge ${badgeType}`}>{this.props.currentConnectionStatus}</span>
+    );
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoBarHeader);
+class InfoBarHeader extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      priceFlashClass: ''
+    };
+
+    this.updatePriceFlashClass = this.updatePriceFlashClass.bind(this);
+  }
+
+  updatePriceFlashClass(e) {
+    this.setState({ priceFlashClass: e });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    let updateType;
+    let priceChange = this.props.currentRamPriceBytes - prevProps.currentRamPriceBytes;
+
+    if (priceChange > 0) {
+      updateType = 'increase';
+      //~ console.log(`${updateType}: ${priceChange}`);
+      this.updatePriceFlashClass(updateType);
+
+      setTimeout(() => {
+        //~ console.log(`Removing price change color`);
+        this.updatePriceFlashClass('');
+      }, 720);
+
+    } else if (priceChange < 0) {
+      updateType = 'decrease';
+      //~ console.log(`${updateType}: ${priceChange}`);
+      this.updatePriceFlashClass(updateType);
+
+      setTimeout(() => {
+        //~ console.log(`Removing price change color`);
+        this.updatePriceFlashClass('');
+      }, 720);
+
+    }
+  }
+
+  render() {
+    return (
+      <div className="page-title-box">
+        <div className="headerRow">
+          <div>
+            <img src="assets/images/sentnl-logo.svg" alt="EOS42" height="30px" style={{ marginRight: "8px" }} />
+          </div>
+          <div>
+          <h4 className="page-title">SENTNL </h4>
+          </div>
+          <h4 className="page-title">  | waxram.sentnl.io</h4>
+        </div>
+
+        <div>
+          <button onClick={() => this.props.voteSentnl()} type="button" className="btn btn-outline-danger w-md"><i className="fa fa-check" style={{marginRight: "10px"}}></i><b>Vote Sentnl</b></button>
+        </div>
+
+        <div className="statusInfo">
+          <SocketConnectionStatus currentConnectionStatus={this.props.currentConnectionStatus} />
+          <CurrentRamPrice
+            priceFlashclassName={this.state.priceFlashClass}
+            currentRamPriceBytes={this.props.currentRamPriceBytes}
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default InfoBarHeader;

@@ -19,12 +19,12 @@ var configMainnet = {
   version: '20180720',
   websocket: {
     protocol: 'https',
-    host: 'waxram.sentnl.io',
+    host: 'waxram.io',
     port: '443',
   },
   publicapi: {
     protocol: 'https',
-    host: 'waxram.sentnl.io',
+    host: 'waxram.io',
     port: '443',
   },
 }
