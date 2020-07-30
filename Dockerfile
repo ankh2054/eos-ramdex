@@ -81,7 +81,7 @@ RUN sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" react/src/App/TVChart/api/con
 
 # Install nodejs modules 
 WORKDIR /app/react
-RUN npm --silent && \
+RUN npm install --silent && \
     npm install react-scripts@3.4.1 -g --silent && \
     npm run builddocker
 
