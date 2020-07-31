@@ -29,7 +29,7 @@ const TVChart = (props) => {
 	useEffect(()=>{
 		const widgetOptions = {
 			debug: false,
-			theme: "Dark",
+			theme: "Light",
 			symbol: symbol,
 			datafeed: Datafeed,
 			interval: interval,
