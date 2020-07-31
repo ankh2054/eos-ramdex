@@ -19,13 +19,14 @@ var configMainnet = {
   version: '20180720',
   websocket: {
     protocol: 'https',
-    host: 'waxram.io',
+    host: 'waxram.sentnl.io',
     port: '443',
   },
   publicapi: {
     protocol: 'https',
-    host: 'waxram.io',
+    host: 'waxram.sentnl.io',
     port: '443',
   },
 }
 module.exports = process.env.REACT_APP_ENVIRONMENT === "mainnet" ? configMainnet : configLocalnet;
+

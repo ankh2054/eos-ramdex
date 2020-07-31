@@ -21,7 +21,9 @@
     "request-promise": "^4.2.2",
     "scatterjs-core": "^2.7.18",
     "scatterjs-plugin-eosjs2": "^1.5.0",
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.1.1",
+    "sass-vars-to-js-loader": "^2.1.1",
+    "node-sass": "^4.14.1"
   },
   "scripts": {
     "start": "react-scripts start",
