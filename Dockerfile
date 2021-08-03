@@ -5,7 +5,7 @@ ENV PACKAGES="\
   supervisor \
   nginx \
   postgresql-contrib \
-  postgresql-12 \
+  postgresql \
   postgresql-client \
   timescaledb-postgresql-12 \
   timescaledb-tools \
