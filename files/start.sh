@@ -64,7 +64,7 @@ echo "Setting up timescaleDB"
 psql -U postgres ${DB_DATABASE} < initdb.sql
 
 echo "Stopping Postgres DB ready for Supervisor "
-ps -aux | ps axf | grep "/usr/lib/postgresql/12/bin/postgres"  | grep -v grep | awk '{print "kill -9 " $1}' | sh
+ps -aux | ps axf | grep "/usr/lib/postgresql/13/bin/postgres"  | grep -v grep | awk '{print "kill -9 " $1}' | sh
 
 }
 
