@@ -15,7 +15,7 @@ docker build https://github.com/ankh2054/eos-ramdex.git -t eosram-dex
 |ENV & ARG                 |Value                          |Description                                   |
 |--------------------------|---------------------------------------|--------------------------------------|
 |**CHAIN_NAME**            |`wax`                                  | Used for DB setup                    |
-|**PGPASSWORD**           |`postgresqlpassword`                   | PostgreSQL password                  |
+|**PGPASSWORD**            |`postgresqlpassword`                   | PostgreSQL password                  |
 |**DB_DATABASE**           |`waxram`                               | Database Name for RAM data           |
 |**DB_USER**               |`waxramuser`                           | Database user with access to DB      |
 |**DB_PASSWORD**           |`waxramuserpassword`                   | Password for Database user       	  |

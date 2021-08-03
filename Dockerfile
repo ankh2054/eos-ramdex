@@ -5,7 +5,7 @@ ENV PACKAGES="\
   supervisor \
   nginx \
   postgresql-contrib \
-  postgresql \
+  postgresql-12 \
   postgresql-client \
   timescaledb-postgresql-12 \
   timescaledb-tools \
@@ -65,7 +65,7 @@ WORKDIR /app
 
 COPY backend/dbapi dbapi
 COPY backend/pricescraper pricescraper
-Copy frontend/express express
+COPY frontend/express express
 COPY frontend/react react
 
 RUN mkdir -p dbapi/logs && mkdir -p pricescraper/logs && mkdir -p express/logs
