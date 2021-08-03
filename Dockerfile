@@ -4,9 +4,9 @@ FROM ubuntu:18.04
 ENV PACKAGES="\
   supervisor \
   nginx \
-  postgresql-contrib \
-  postgresql \
-  postgresql-client \
+  postgresql-contrib-12 \
+  postgresql-12  \
+  postgresql-client-12 \
   timescaledb-postgresql-12 \
   timescaledb-tools \
   sudo \
@@ -17,7 +17,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/London
 
 # PostgreSQL ENV
-ENV PG_VERSION 13
+ENV PG_VERSION 12
 ENV PG_BASE /var/lib/postgresql
 ENV PG_PASSWORD_FILE ${PG_BASE}/pwfile
 ENV PG_DATA ${PG_BASE}/${PG_VERSION}/main
