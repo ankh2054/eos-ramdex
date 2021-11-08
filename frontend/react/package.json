@@ -46,6 +46,7 @@
     "start": "react-scripts start",
     "build": "REACT_APP_ENVIRONMENT=mainnet react-scripts build && rm build/static/*/*.map && cp -r -f build/* ../express/public/",
     "buildlocal": "REACT_APP_ENVIRONMENT=localnet react-scripts build && rm build/static/*/*.map && cp -r -f build/* ../express/public/",
+    "buildwindows": "REACT_APP_ENVIRONMENT=localnet react-scripts build",
     "builddocker": "REACT_APP_ENVIRONMENT=mainnet react-scripts build && rm build/static/*/*.map && mkdir -p ../express/public && cp -r -f build/* ../express/public/"
   }
 }
