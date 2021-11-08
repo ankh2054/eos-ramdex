@@ -41,7 +41,7 @@ var curRecentActionsList = [];
 
 //~ Public EOS API nodes that we randomly select from for each data request. Must be able to respond in <230ms to be a viable API
 // var nodeosEndpoints = 'https://chain.wax.io';
-var nodeosEndpoints = 'https://wax.eosrio.io';
+var nodeosEndpoints = 'https://hyperion.sentnl.io';
 
 async function dataTickUpdateTask() {
   //~ Check to see if we already have an outstanding request to get Ram or Vol data. Only send the next request if we don't
