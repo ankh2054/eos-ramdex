@@ -109,12 +109,12 @@ const Dashboard = (props) => {
 
   let updateInterval = null
 
-  let rpc = new JsonRpc(process.env.api_node || "https://chain.wax.io:443", { fetch })
+  let rpc = new JsonRpc(process.env.api_node || "https://wax.greymass.com:443", { fetch })
 
   let network = ScatterJS.Network.fromJson({
     blockchain: 'eos',
     chainId: '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4',
-    host: 'chain.wax.io',
+    host: 'wax.greymass.com',
     port: 443,
     protocol: 'https'
   });
@@ -214,7 +214,7 @@ const Dashboard = (props) => {
       }
     }
 
-    // Add eos42freedom
+  
     votersArray.push("sentnlagents")
 
     try {
@@ -394,7 +394,11 @@ const Dashboard = (props) => {
                 scatterLoading={scatterLoading}
               />
 
-              <DashboardStatistics />
+              <DashboardStatistics 
+
+              currentRamPriceBytes={currentRamPriceBytes}
+              
+              />
 
 
               <div className="row">

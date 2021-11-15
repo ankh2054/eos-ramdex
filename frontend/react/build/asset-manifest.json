@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6074ea2c.chunk.css",
+    "main.js": "/static/js/main.4088e61c.chunk.js",
+    "main.js.map": "/static/js/main.4088e61c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.2fc1b00f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.2fc1b00f.js.map",
+    "static/css/2.9278783e.chunk.css": "/static/css/2.9278783e.chunk.css",
+    "static/js/2.2c12fe46.chunk.js": "/static/js/2.2c12fe46.chunk.js",
+    "static/js/2.2c12fe46.chunk.js.map": "/static/js/2.2c12fe46.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.a6fad23e470655f34f7b6ec9f77570aa.js": "/precache-manifest.a6fad23e470655f34f7b6ec9f77570aa.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.9278783e.chunk.css.map": "/static/css/2.9278783e.chunk.css.map",
+    "static/css/main.6074ea2c.chunk.css.map": "/static/css/main.6074ea2c.chunk.css.map",
+    "static/js/2.2c12fe46.chunk.js.LICENSE.txt": "/static/js/2.2c12fe46.chunk.js.LICENSE.txt",
+    "static/media/base.scss": "/static/media/bg5.d6730522.jpg",
+    "static/media/people-1.jpg": "/static/media/people-1.30c78132.jpg",
+    "static/media/people-3.jpg": "/static/media/people-3.42385d5f.jpg",
+    "static/media/sentnl-logo.svg": "/static/media/sentnl-logo.705ba8f4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2fc1b00f.js",
+    "static/css/2.9278783e.chunk.css",
+    "static/js/2.2c12fe46.chunk.js",
+    "static/css/main.6074ea2c.chunk.css",
+    "static/js/main.4088e61c.chunk.js"
+  ]
+}

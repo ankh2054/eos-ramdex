@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Grid, Card } from '@material-ui/core';
 
-export default function DashboardStatistics() {
+
+const App = ({ currentRamPriceBytes }) => {
+//export default function DashboardStatistics() {
   return (
     <Fragment>
       <Grid container spacing={4}>
@@ -14,17 +16,16 @@ export default function DashboardStatistics() {
               <div className="d-40 rounded-circle bg-first text-white text-center font-size-lg mr-3">
                 <FontAwesomeIcon icon={['far', 'keyboard']} />
               </div>
-              <div className="text-black-50">Revenue</div>
+              <div className="text-black-50">WAX/KB</div>
             </div>
             <div className="display-3 text-center line-height-sm text-second text-center d-flex align-items-center pt-3 justify-content-center">
               <FontAwesomeIcon
                 icon={['fas', 'arrow-down']}
                 className="font-size-sm text-danger mr-2"
               />
-              <div>$3,485</div>
+              <div>{!isNaN(currentRamPriceBytes) ? (currentRamPriceBytes * 1024).toFixed(8) : currentRamPriceBytes}</div>
             </div>
             <div className="text-black-50 text-center opacity-6 pt-3">
-              <b>+36%</b> from last month
             </div>
           </Card>
         </Grid>
@@ -34,17 +35,14 @@ export default function DashboardStatistics() {
               <div className="d-40 rounded-circle bg-success text-white text-center font-size-lg mr-3">
                 <FontAwesomeIcon icon={['far', 'file-excel']} />
               </div>
-              <div className="text-black-50">Reports</div>
+              <div className="text-black-50">WAX/USDT</div>
             </div>
             <div className="display-3 text-center line-height-sm text-second text-center d-flex align-items-center pt-3 justify-content-center">
               <FontAwesomeIcon
                 icon={['far', 'dot-circle']}
                 className="font-size-sm text-warning mr-2"
               />
-              <div>436</div>
-            </div>
-            <div className="text-black-50 text-center opacity-6 pt-3">
-              <b>+65%</b> from last month
+              <div>coming</div>
             </div>
           </Card>
         </Grid>
@@ -54,17 +52,14 @@ export default function DashboardStatistics() {
               <div className="d-40 rounded-circle bg-danger text-white text-center font-size-lg mr-3">
                 <FontAwesomeIcon icon={['far', 'user']} />
               </div>
-              <div className="text-black-50">Customers</div>
+              <div className="text-black-50">Largest RAM holder</div>
             </div>
             <div className="display-3 text-center line-height-sm text-second text-center d-flex align-items-center pt-3 justify-content-center">
               <FontAwesomeIcon
                 icon={['fas', 'arrow-up']}
                 className="font-size-sm text-success mr-2"
               />
-              <div>4867</div>
-            </div>
-            <div className="text-black-50 text-center opacity-6 pt-3">
-              <b>+22%</b> from last month
+              <div>coming soon</div>
             </div>
           </Card>
         </Grid>
@@ -74,17 +69,14 @@ export default function DashboardStatistics() {
               <div className="d-40 rounded-circle bg-primary text-white text-center font-size-lg mr-3">
                 <FontAwesomeIcon icon={['far', 'user']} />
               </div>
-              <div className="text-black-50">Sales</div>
+              <div className="text-black-50">Other</div>
             </div>
             <div className="display-3 text-center line-height-sm text-black-50 text-center d-flex align-items-center pt-3 justify-content-center">
               <FontAwesomeIcon
                 icon={['fas', 'arrow-down']}
                 className="font-size-sm text-first mr-2"
               />
-              <div>433</div>
-            </div>
-            <div className="text-black-50 text-center opacity-6 pt-3">
-              <b>+32%</b> from last month
+              <div>coming soon</div>
             </div>
           </Card>
         </Grid>
@@ -92,3 +84,5 @@ export default function DashboardStatistics() {
     </Fragment>
   );
 }
+
+export default App
