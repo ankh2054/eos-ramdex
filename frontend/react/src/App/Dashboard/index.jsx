@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScatterJS from "scatterjs-core";
 import { JsonRpc, Api } from "eosjs";
+import axios from 'axios'
 
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -31,6 +32,8 @@ import {
   CardContent
 } from '@material-ui/core';
 
+const apiKey = process.env.apiKey
+const url = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,USDT,WAX,WAXP";
 
 const Dashboard = (props) => {
   const {
@@ -72,6 +75,8 @@ const Dashboard = (props) => {
   const [accStats_net_limit_used, setAccStats_net_limit_used] = useState(null);
   const [accStats_total_resources_cpu_weight, setAccStats_total_resources_cpu_weight] = useState(null);
   const [accStats_total_resources_net_weight, setAccStats_total_resources_net_weight] = useState(null);
+  const [cryptoData, setCryptoData] = useState({})
+
 
   const updateScatterLoading = (loading) => {
     // scatterLoading = loading;
@@ -99,14 +104,33 @@ const Dashboard = (props) => {
     setCurrentConnectionStatus(status);
   };
 
+  const fetchCrytoCompareData = async () => {
+    try {
+      const fetchedCryptoCompareResults = await axios.get(url, {
+        headers: {
+          authorization: apiKey
+        }
+      });
+      const { data } = fetchedCryptoCompareResults;
+      const { USD, WAX, USDT} = data
+      setCryptoData(data)
+    } catch (err) {
+      console.log(`There was an error fetching the daily data: ${err}`);
+    }
+  };
+
 
 
   useEffect(() => {
-    stream.subscribeFrontend(handleNewPriceChange, handleNewTradesChange, handleSocketConnectionStatus);
+    stream.subscribeFrontend(handleNewPriceChange, handleNewTradesChange, handleSocketConnectionStatus);    
+  }, []);
+
+  useEffect(() => {
+    fetchCrytoCompareData();
   }, []);
 
 
-
+  console.log('DATAAAAAAAAAAAAAAAAA', cryptoData)
   let updateInterval = null
 
   let rpc = new JsonRpc(process.env.api_node || "https://wax.greymass.com:443", { fetch })
@@ -119,6 +143,8 @@ const Dashboard = (props) => {
     protocol: 'https'
   });
 
+
+ 
 
 
 
@@ -397,6 +423,7 @@ const Dashboard = (props) => {
               <DashboardStatistics 
 
               currentRamPriceBytes={currentRamPriceBytes}
+              cryptoData={cryptoData}
               
               />
 
