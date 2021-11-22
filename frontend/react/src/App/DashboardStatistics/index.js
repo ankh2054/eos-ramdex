@@ -56,7 +56,7 @@ const App = ({ currentRamPriceBytes, cryptoData }) => {
               <div className="d-40 rounded-circle bg-danger text-white text-center font-size-lg mr-3">
                 <FontAwesomeIcon icon={['far', 'user']} />
               </div>
-              <div className="text-black-50">Largest RAM holder</div>
+              <div className="text-black-50">Largest RAM holder</div> 
             </div>
             <div className="display-3 text-center line-height-sm text-second text-center d-flex align-items-center pt-3 justify-content-center">
               <FontAwesomeIcon

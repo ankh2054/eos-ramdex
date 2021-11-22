@@ -33,7 +33,7 @@ import {
 } from '@material-ui/core';
 
 const apiKey = process.env.apiKey
-const url = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,USDT,WAX,WAXP";
+const url = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,USDT,WAX,WAXP"; 
 
 const Dashboard = (props) => {
   const {
