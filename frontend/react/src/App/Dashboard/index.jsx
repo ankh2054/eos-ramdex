@@ -130,7 +130,6 @@ const Dashboard = (props) => {
   }, []);
 
 
-  console.log('DATAAAAAAAAAAAAAAAAA', cryptoData)
   let updateInterval = null
 
   let rpc = new JsonRpc(process.env.api_node || "https://wax.greymass.com:443", { fetch })
