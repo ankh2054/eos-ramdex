@@ -83,6 +83,7 @@ RUN sed -E "s/(host:.).+$/\1'waxram.sentnl.io',/g" react/src/App/TVChart/api/con
 WORKDIR /app/react
 RUN npm ci --silent && \
     npm install react-scripts@3.4.1 -g --silent && \
+    npx browserslist@latest --update-db && \
     npm run builddocker
 
 WORKDIR /app/dbapi
