@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Grid, Card } from '@material-ui/core';
 
 
-const App = ({ currentRamPriceBytes }) => {
+const App = ({ currentRamPriceBytes, cryptoData }) => {
+  const { USD, WAX, USDT } = cryptoData
+  console.log('Crypto Data is', cryptoData);
 //export default function DashboardStatistics() {
   return (
     <Fragment>
@@ -42,7 +44,9 @@ const App = ({ currentRamPriceBytes }) => {
                 icon={['far', 'dot-circle']}
                 className="font-size-sm text-warning mr-2"
               />
-              <div>coming</div>
+              {(cryptoData.USDT && cryptoData.WAX)
+          ? `$${Math.round((cryptoData.WAXP/cryptoData.USDT) * 100) / 100}`
+          : "x.xx"}
             </div>
           </Card>
         </Grid>
@@ -52,7 +56,7 @@ const App = ({ currentRamPriceBytes }) => {
               <div className="d-40 rounded-circle bg-danger text-white text-center font-size-lg mr-3">
                 <FontAwesomeIcon icon={['far', 'user']} />
               </div>
-              <div className="text-black-50">Largest RAM holder</div>
+              <div className="text-black-50">Largest RAM holder</div> 
             </div>
             <div className="display-3 text-center line-height-sm text-second text-center d-flex align-items-center pt-3 justify-content-center">
               <FontAwesomeIcon
