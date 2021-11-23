@@ -6,8 +6,8 @@ import { Grid, Card } from '@material-ui/core';
 
 
 const App = ({ currentRamPriceBytes, cryptoData }) => {
-  const { USD, WAX, USDT } = cryptoData
-  console.log('Crypto Data is', cryptoData);
+  const { USD } = cryptoData
+  // console.log('Crypto Data is', cryptoData);
 //export default function DashboardStatistics() {
   return (
     <Fragment>
@@ -44,9 +44,9 @@ const App = ({ currentRamPriceBytes, cryptoData }) => {
                 icon={['far', 'dot-circle']}
                 className="font-size-sm text-warning mr-2"
               />
-              {(cryptoData.USDT && cryptoData.WAX)
-          ? `$${Math.round((cryptoData.WAXP/cryptoData.USDT) * 100) / 100}`
-          : "x.xx"}
+              {(cryptoData.USD)
+          ? `$${Math.round((cryptoData.USD) * 100) / 100}`
+          : "Loading.."}
             </div>
           </Card>
         </Grid>
