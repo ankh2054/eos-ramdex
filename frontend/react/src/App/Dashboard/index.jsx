@@ -33,7 +33,7 @@ import {
 } from '@material-ui/core';
 
 const apiKey = process.env.apiKey
-const url = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,USDT,WAX,WAXP"; 
+const url = "https://min-api.cryptocompare.com/data/price?fsym=WAXP&tsyms=USD"; 
 
 const Dashboard = (props) => {
   const {
@@ -112,7 +112,6 @@ const Dashboard = (props) => {
         }
       });
       const { data } = fetchedCryptoCompareResults;
-      const { USD, WAX, USDT} = data
       setCryptoData(data)
     } catch (err) {
       console.log(`There was an error fetching the daily data: ${err}`);
