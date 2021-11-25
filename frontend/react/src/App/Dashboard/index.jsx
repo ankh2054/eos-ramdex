@@ -460,7 +460,7 @@ const Dashboard = (props) => {
                 {/*--- End recent trades box ---*/}
 
               </div>
-              <TradePanel
+              {/*--- <TradePanel
                 id="react-tradepanel"
                 currentRamPriceBytes={currentRamPriceBytes}
                 scatter={scatter}
@@ -491,6 +491,7 @@ const Dashboard = (props) => {
                 notifyTxInfo={notifyTxInfo}
                 notifyTx={notifyTx}
               />
+              ---*/}
 
             </div>
           </div>
