@@ -17,7 +17,7 @@ function getLanguageFromURL() {
 
 const TVChart = (props) => {
 
-	const { autosize = true, symbol = 'WAX/KB RAM | SENTNL | waxram.io', interval = '60', containerId = 'tv_chart_container', clientId = 'tradingview.com', libraryPath = '/chart/', chartsStorageUrl
+	const { autosize = true, symbol = 'WAX/KB RAM | SENTNL | waxram.sentnl.io', interval = '60', containerId = 'tv_chart_container', clientId = 'tradingview.com', libraryPath = '/chart/', chartsStorageUrl
 		, chartsStorageApiVersion = '1.1', userId = 'ankh2054', fullscreen = false, studiesOverrides = {
 			"volume.volume.color.0": "#ec4d5c",	//~ Down color
 			"volume.volume.color.1": "#52b986"	//~ Up color
