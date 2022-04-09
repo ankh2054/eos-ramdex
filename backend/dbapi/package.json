@@ -33,7 +33,7 @@
     "fsevents": "^1.2.9",
     "helmet": "^3.12.1",
     "mahsan": "^0.2.2",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "morgan": "^1.9.0",
     "pg-promise": "^8.4.5"
   }
