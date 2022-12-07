@@ -27,9 +27,9 @@
     "nodemon": "^1.17.5"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "dotenv": "^8.0.0",
-    "express": "^4.16.3",
+    "express": "^4.18.2",
     "fsevents": "^1.2.9",
     "helmet": "^3.12.1",
     "mahsan": "^0.2.2",
